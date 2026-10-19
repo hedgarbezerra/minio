@@ -2,9 +2,11 @@ name: Publish image to GHCR
 
 on:
   push:
-    tags:
+    branches:
       - "main"
-      - "master"
+      - "develop"
+    tags:
+      - "*.*.*"
 
 permissions:
   contents: read
@@ -37,6 +39,8 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=ref,event=branch,enable=${{ github.ref == 'refs/heads/develop' }}
             type=ref,event=tag
 
       - name: Build and push image
