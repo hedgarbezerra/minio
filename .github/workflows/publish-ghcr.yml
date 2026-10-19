@@ -3,7 +3,8 @@ name: Publish image to GHCR
 on:
   push:
     tags:
-      - "RELEASE.*"
+      - "main"
+      - "master"
 
 permissions:
   contents: read
